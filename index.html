@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Angry Molly · 炽热之心</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="uiLayer">
+
+      <div id="homePage">
+        <div class="home-kv">
+          <div class="kv-molly">
+            <img src="./素材/01.png" alt="Angry Molly" />
+          </div>
+          <h1 class="kv-title">炽热之心</h1>
+          <p class="kv-subtitle">Angry Molly · POP MART</p>
+        </div>
+        <div class="home-actions">
+          <button id="btnStart" class="btn-primary btn-breathe">开始游戏</button>
+          <button id="btnMusic" class="btn-music" aria-label="音乐开关">🎵</button>
+        </div>
+        <div class="home-badge">20<span>周</span><small>年</small></div>
+        <div class="home-footer">
+          <span class="footer-logo">POP MART · MOLLY</span>
+        </div>
+      </div>
+
+      <div id="levelTransition">
+        <p class="transition-text"></p>
+      </div>
+
+      <div id="settlementPage">
+        <div class="settlement-content">
+          <h2 class="settlement-title">关卡完成</h2>
+          <div class="settlement-stars"></div>
+          <p class="settlement-message"></p>
+          <div class="settlement-actions">
+            <button id="btnShare" class="btn-primary">分享</button>
+            <button id="btnReplay" class="btn-secondary">再来一次</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="posterModal">
+        <div class="poster-overlay"></div>
+        <div class="poster-container">
+          <canvas id="posterCanvas" width="750" height="1334"></canvas>
+          <div class="poster-actions">
+            <button id="btnSavePoster" class="btn-primary">保存海报</button>
+            <button id="btnClosePoster" class="btn-secondary">关闭</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+    <script>
+      (function() {
+        if (typeof wx !== 'undefined' && wx.config) {
+          var s = document.createElement('script');
+          s.src = 'https://res.wx.qq.com/open/js/jweixin-1.6.0.js';
+          s.async = true;
+          document.head.appendChild(s);
+        }
+      })();
+    </script>
+  </body>
+</html>

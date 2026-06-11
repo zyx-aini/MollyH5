@@ -1,0 +1,17 @@
+{
+  "name": "angry-molly-heart",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Angry Molly 炽热之心 - 大广赛参赛互动 H5 作品",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy:local": "npm run build && npm run preview"
+  },
+  "devDependencies": {
+    "vite": "^8.0.12",
+    "esbuild": "^0.25.0"
+  }
+}
