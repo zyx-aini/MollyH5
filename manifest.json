@@ -1,0 +1,18 @@
+{
+  "index.html": {
+    "file": "assets/index-DswR_6bG.js",
+    "name": "index",
+    "src": "index.html",
+    "isEntry": true,
+    "css": [
+      "assets/index-C7uLzqJq.css"
+    ],
+    "assets": [
+      "assets/01-YWnpDqOJ.png"
+    ]
+  },
+  "素材/01.png": {
+    "file": "assets/01-YWnpDqOJ.png",
+    "src": "素材/01.png"
+  }
+}

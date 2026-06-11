@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>比赛提交 · Angry Molly 炽热之心</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ff6b35 0%, #f7c59f 50%, #ff3b30 100%);
+      font-family: "PingFang SC", "Microsoft YaHei", -apple-system, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #2d2d2d;
+    }
+    .card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 40px 36px;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(255, 59, 48, 0.25);
+      text-align: center;
+    }
+    .logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ffd8b0, #ffb088 60%, #ff8866);
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 900;
+      color: #fff;
+    }
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 4px;
+      color: #2d2d2d;
+      letter-spacing: 0.02em;
+    }
+    .subtitle {
+      font-size: 0.95rem;
+      color: #888;
+      margin-bottom: 28px;
+    }
+    .qrcode-box {
+      background: #fafafa;
+      border: 2px dashed #ffb088;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    #qrcode {
+      width: 200px;
+      height: 200px;
+      display: block;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 8px;
+    }
+    .qrcode-hint {
+      font-size: 0.85rem;
+      color: #999;
+      margin-top: 12px;
+    }
+    .link-box {
+      background: #fff8f5;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      border: 1px solid #ffe0cc;
+    }
+    .link-label {
+      font-size: 0.8rem;
+      color: #ff6b35;
+      font-weight: 600;
+      margin-bottom: 6px;
+      text-align: left;
+    }
+    .link-url {
+      font-family: "SF Mono", Consolas, Monaco, monospace;
+      font-size: 0.85rem;
+      color: #2d2d2d;
+      word-break: break-all;
+      text-align: left;
+      line-height: 1.5;
+    }
+    .btn-row {
+      display: flex;
+      gap: 12px;
+    }
+    .btn {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 12px;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary {
+      background: linear-gradient(135deg, #ff3b30, #ff6b35);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(255, 59, 48, 0.3);
+    }
+    .btn-secondary {
+      background: #fff;
+      color: #ff6b35;
+      border: 2px solid #ffb088;
+    }
+    .info {
+      margin-top: 24px;
+      padding: 16px;
+      background: #fff8f5;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      color: #666;
+      line-height: 1.7;
+      text-align: left;
+    }
+    .info strong { color: #ff3b30; }
+    .divider {
+      height: 1px;
+      background: #f0f0f0;
+      margin: 20px 0;
+    }
+    .copyright {
+      font-size: 0.75rem;
+      color: #aaa;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">🔥</div>
+    <h1>Angry Molly · 炽热之心</h1>
+    <p class="subtitle">大广赛参赛作品 · 互动 H5</p>
+
+    <div class="qrcode-box">
+      <img id="qrcode" alt="作品二维码" />
+      <p class="qrcode-hint">📱 用手机扫码，在浏览器中打开体验</p>
+    </div>
+
+    <div class="link-box">
+      <div class="link-label">作品链接</div>
+      <div class="link-url" id="workUrl">加载中...</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="openWork()">打开作品</button>
+      <button class="btn btn-secondary" onclick="copyUrl()">复制链接</button>
+    </div>
+
+    <div class="info">
+      <strong>📋 比赛提交说明</strong><br />
+      1. 二维码：右键上方图片另存为，或直接截图使用<br />
+      2. 作品链接：即当前页面根目录下的 <code style="background:#fff;padding:2px 6px;border-radius:4px;">index.html</code><br />
+      3. 链接长期有效（GitHub Pages 托管）<br />
+      4. 如需本地预览，可访问 dist 目录
+    </div>
+
+    <div class="divider"></div>
+    <div class="copyright">© POP MART · MOLLY 20th Anniversary</div>
+  </div>
+
+  <script>
+    // 根据当前页面域名，生成作品主页 URL 和二维码
+    (function () {
+      // 作品根 URL（当前 submit.html 所在目录）
+      var path = window.location.pathname.replace(/[^/]*$/, '');
+      var rootUrl = window.location.origin + (path || '/');
+      var workUrl = rootUrl; // 根目录就是 index.html
+
+      document.getElementById('workUrl').textContent = workUrl;
+
+      // 使用公共二维码 API 生成图片
+      var qrCodeUrl =
+        'https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=10&data=' +
+        encodeURIComponent(workUrl);
+
+      document.getElementById('qrcode').src = qrCodeUrl;
+      document.getElementById('qrcode').alt = '作品二维码 - ' + workUrl;
+    })();
+
+    function openWork() {
+      // 跳转到作品首页（index.html）
+      var path = window.location.pathname.replace(/[^/]*$/, '');
+      window.location.href = path || './';
+    }
+
+    function copyUrl() {
+      var url = document.getElementById('workUrl').textContent;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(function () {
+          alert('✅ 链接已复制到剪贴板');
+        }).catch(function () {
+          fallbackCopy(url);
+        });
+      } else {
+        fallbackCopy(url);
+      }
+    }
+
+    function fallbackCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        alert('✅ 链接已复制到剪贴板');
+      } catch (e) {
+        alert('请手动复制：\n' + text);
+      }
+      document.body.removeChild(ta);
+    }
+  </script>
+</body>
+</html>
