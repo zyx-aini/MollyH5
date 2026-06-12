@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Angry Molly · 炽热之心 — 二维码生成器</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #1a0a14 0%, #4a1030 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: #fff;
+  }
+  .card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 40px 36px;
+    max-width: 480px;
+    width: 100%;
+    border: 1px solid rgba(255,255,255,0.15);
+    text-align: center;
+  }
+  h1 { font-size: 22px; margin-bottom: 8px; }
+  .sub { font-size: 13px; opacity: 0.7; margin-bottom: 24px; }
+  input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    background: rgba(0,0,0,0.25);
+    color: #fff;
+    font-size: 14px;
+    margin-bottom: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input:focus { border-color: #ff4d6d; }
+  button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ff4d6d, #c9184a);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  button:hover { opacity: 0.92; }
+  #qrbox {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    display: inline-block;
+    margin: 0 auto 16px;
+    min-height: 200px;
+  }
+  #qrbox canvas, #qrbox img { display: block; }
+  #linkOut {
+    background: rgba(0,0,0,0.3);
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    word-break: break-all;
+    margin-top: 12px;
+    line-height: 1.6;
+  }
+  #linkOut a { color: #ffb3c1; text-decoration: none; }
+  .hint { font-size: 12px; opacity: 0.6; margin-top: 16px; line-height: 1.7; text-align: left; }
+  .hint code { background: rgba(0,0,0,0.4); padding: 2px 6px; border-radius: 4px; font-size: 11px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+<div class="card">
+  <h1>🔥 Angry Molly · 炽热之心</h1>
+  <div class="sub">作品二维码生成器</div>
+  <input id="url" placeholder="在此粘贴作品链接，例如 https://zyx-aini.github.io/MollyH5/" value="">
+  <button onclick="genQR()">生成二维码</button>
+  <div id="qrbox"><div style="color:#666;font-size:14px;padding:60px 0;">点击上方按钮生成</div></div>
+  <div id="linkOut"></div>
+  <div class="hint">
+    提示：<br>
+    1. 粘贴你的作品网址到上方输入框<br>
+    2. 点击"生成二维码"，右键保存图片<br>
+    3. 或直接用手机对着屏幕扫码测试<br>
+    4. 比赛提交时，提供<b>链接</b>和<b>二维码截图</b>
+  </div>
+</div>
+<script>
+  // 默认填 GitHub Pages 预期地址
+  document.getElementById('url').value = 'https://zyx-aini.github.io/MollyH5/';
+  function genQR() {
+    const url = document.getElementById('url').value.trim();
+    if (!url) { alert('请先输入作品链接'); return; }
+    const box = document.getElementById('qrbox');
+    box.innerHTML = '';
+    new QRCode(box, {
+      text: url,
+      width: 240,
+      height: 240,
+      correctLevel: QRCode.CorrectLevel.H
+    });
+    document.getElementById('linkOut').innerHTML =
+      '🔗 作品链接：<a href="' + url + '" target="_blank">' + url + '</a><br>' +
+      '📋 提交页（含自动二维码）：<a href="' + url.replace(/\/$/, '') + '/submit.html" target="_blank">' + url.replace(/\/$/, '') + '/submit.html</a>';
+  }
+  // 页面加载后自动生成
+  window.addEventListener('load', function() {
+    setTimeout(genQR, 300);
+  });
+</script>
+</body>
+</html>
